@@ -891,12 +891,19 @@ function startQuiz(){
 function retake(){stopAll();startQuiz();}
 function toggleMute(){
   const audio = document.getElementById('bgm-audio');
-  const btn = document.getElementById('mute-btn');
+  const btn   = document.getElementById('mute-btn');
   if(!audio) return;
-  muted = !muted;
-  audio.muted = muted;
-  btn.textContent = muted ? '♩' : '♪';
-  btn.style.opacity = muted ? '.4' : '1';
+  if(bgmPlaying){
+    audio.pause();
+    bgmPlaying = false;
+    btn.textContent = '♩';
+    btn.style.opacity = '.4';
+  } else {
+    audio.play().catch(()=>{});
+    bgmPlaying = true;
+    btn.textContent = '♪';
+    btn.style.opacity = '1';
+  }
 }
 
 function showSplash(chIdx,force=false){
