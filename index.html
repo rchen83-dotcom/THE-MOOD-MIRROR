@@ -210,7 +210,7 @@ html,body{min-height:100%;background:#06080e;font-family:var(--f-body);font-weig
 <div class="screen active" id="sw">
   <div class="topbar" style="margin-bottom:0">
     <div style="width:42px"></div>
-    <span style="font-family:var(--f-display);font-size:10px;opacity:.32;letter-spacing:.1em">17:58</span>
+    <span style="font-family:var(--f-display);font-size:10px;opacity:.32;letter-spacing:.1em" id="live-clock">17:58</span>
     <button class="ibtn ghost" onclick="goScreen('si')">?</button>
   </div>
   <div style="flex:1;display:flex;align-items:flex-start;padding-top:32px">
@@ -1223,6 +1223,17 @@ function computeResult(){
   goScreen('sr');
 }
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
+
+/* ── LIVE CLOCK ── */
+function updateClock(){
+  const el=document.getElementById('live-clock');
+  if(!el)return;
+  const now=new Date();
+  el.textContent=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+}
+updateClock();
+setInterval(updateClock,1000);
+
 document.addEventListener('DOMContentLoaded',renderQ);
 </script>
 </body>
